@@ -1,0 +1,387 @@
+[
+  {
+    "question": "What is the function of the Arduino Uno board?",
+    "options": [
+      "Run Microsoft Windows",
+      "Display images",
+      "Control and program hardware",
+      "Charge batteries"
+    ],
+    "answer": "Control and program hardware"
+  },
+  {
+    "question": "Which of the following is the correct programming language used for Arduino?",
+    "options": ["Python", "C++", "Java", "HTML"],
+    "answer": "C++"
+  },
+  {
+    "question": "How many digital I/O pins are there on an Arduino Uno?",
+    "options": ["8", "14", "20", "10"],
+    "answer": "14"
+  },
+  {
+    "question": "What is the voltage output of Arduino Uno’s 5V pin?",
+    "options": ["3.3V", "12V", "5V", "0V"],
+    "answer": "5V"
+  },
+  {
+    "question": "Which pin is used to ground a circuit in Arduino?",
+    "options": ["VIN", "A0", "GND", "13"],
+    "answer": "GND"
+  },
+  {
+    "question": "What is the main purpose of the setup() function in Arduino code?",
+    "options": [
+      "Run repeatedly",
+      "Initialize variables",
+      "Setup hardware once",
+      "Display output"
+    ],
+    "answer": "Setup hardware once"
+  },
+  {
+    "question": "What kind of microcontroller is used in Arduino Uno?",
+    "options": ["ATmega328P", "Raspberry Pi", "Intel Core i3", "ESP32"],
+    "answer": "ATmega328P"
+  },
+  {
+    "question": "Which software is used to write and upload code to Arduino?",
+    "options": ["Excel", "Arduino IDE", "Adobe Photoshop", "MATLAB"],
+    "answer": "Arduino IDE"
+  },
+  {
+    "question": "What type of USB cable is used to connect Arduino Uno to a computer?",
+    "options": ["USB-A to USB-B", "USB-C", "HDMI", "Lightning"],
+    "answer": "USB-A to USB-B"
+  },
+  {
+    "question": "What does delay(1000); do in Arduino?",
+    "options": [
+      "Makes a sound",
+      "Lights an LED",
+      "Pauses for 1 second",
+      "Starts a loop"
+    ],
+    "answer": "Pauses for 1 second"
+  },
+  {
+    "question": "What is the function of the ultrasonic sensor?",
+    "options": [
+      "Detect sound",
+      "Detect temperature",
+      "Measure distance",
+      "Measure voltage"
+    ],
+    "answer": "Measure distance"
+  },
+  {
+    "question": "Which two pins are used to trigger and read from the ultrasonic sensor?",
+    "options": ["VCC and GND", "TRIG and ECHO", "RX and TX", "SDA and SCL"],
+    "answer": "TRIG and ECHO"
+  },
+  {
+    "question": "What unit does the ultrasonic sensor measure distance in?",
+    "options": ["Inches", "Meters", "Centimeters", "Millimeters"],
+    "answer": "Centimeters"
+  },
+  {
+    "question": "Which function in Arduino measures time for ultrasonic response?",
+    "options": ["analogRead()", "digitalWrite()", "pulseIn()", "millis()"],
+    "answer": "pulseIn()"
+  },
+  {
+    "question": "How does the ultrasonic sensor detect an object?",
+    "options": [
+      "Using magnetic waves",
+      "By detecting heat",
+      "By reflecting light",
+      "By bouncing sound waves"
+    ],
+    "answer": "By bouncing sound waves"
+  },
+  {
+    "question": "What happens to the reading if the object is too far away?",
+    "options": [
+      "Error message",
+      "Distance returns 0",
+      "Distance becomes very high",
+      "Sensor stops working"
+    ],
+    "answer": "Distance returns 0"
+  },
+  {
+    "question": "The typical range of an HC-SR04 ultrasonic sensor is:",
+    "options": ["2cm to 400cm", "0 to 10cm", "10m to 100m", "0 to 100V"],
+    "answer": "2cm to 400cm"
+  },
+  {
+    "question": "What is the speed of sound used in ultrasonic distance calculations?",
+    "options": ["343 m/s", "100 m/s", "500 m/s", "1000 m/s"],
+    "answer": "343 m/s"
+  },
+  {
+    "question": "If no object is detected, the ultrasonic sensor:",
+    "options": [
+      "Returns 0",
+      "Continues scanning",
+      "Shuts down",
+      "Activates LED"
+    ],
+    "answer": "Returns 0"
+  },
+  {
+    "question": "Which formula is used to calculate distance using the ultrasonic sensor?",
+    "options": [
+      "distance = time × voltage",
+      "distance = speed × time",
+      "distance = time / speed",
+      "distance = speed × (time / 2)"
+    ],
+    "answer": "distance = speed × (time / 2)"
+  },
+  {
+    "question": "What does a servo motor do?",
+    "options": [
+      "Spins continuously",
+      "Controls angle position",
+      "Plays audio",
+      "Measures distance"
+    ],
+    "answer": "Controls angle position"
+  },
+  {
+    "question": "How many wires does a servo motor typically have?",
+    "options": ["1", "2", "3", "4"],
+    "answer": "3"
+  },
+  {
+    "question": "What pin is used to send control signals to a servo motor?",
+    "options": ["GND", "VCC", "Signal", "ECHO"],
+    "answer": "Signal"
+  },
+  {
+    "question": "What library is used in Arduino to control a servo?",
+    "options": ["Motor.h", "Servo.h", "PWM.h", "ServoMotor.h"],
+    "answer": "Servo.h"
+  },
+  {
+    "question": "What is the angle range of most micro servo motors?",
+    "options": ["0°–360°", "0°–90°", "0°–180°", "0°–45°"],
+    "answer": "0°–180°"
+  },
+  {
+    "question": "What command moves the servo to 90 degrees?",
+    "options": [
+      "servo.turn(90);",
+      "servo.set(90);",
+      "servo.write(90);",
+      "rotate(90);"
+    ],
+    "answer": "servo.write(90);"
+  },
+  {
+    "question": "What type of signal controls servo position?",
+    "options": ["Analog", "Constant", "PWM (Pulse Width Modulation)", "Audio"],
+    "answer": "PWM (Pulse Width Modulation)"
+  },
+  {
+    "question": "If a servo doesn't move, it might be because:",
+    "options": [
+      "It needs an HDMI cable",
+      "Signal pin is wrong",
+      "It needs a speaker",
+      "It is out of memory"
+    ],
+    "answer": "Signal pin is wrong"
+  },
+  {
+    "question": "Servos are commonly used in:",
+    "options": ["Lights", "Televisions", "Automated doors", "Speakers"],
+    "answer": "Automated doors"
+  },
+  {
+    "question": "What does servo.attach(pin); do in Arduino?",
+    "options": [
+      "Disconnects the motor",
+      "Enables buzzer",
+      "Links servo to a digital pin",
+      "Starts a loop"
+    ],
+    "answer": "Links servo to a digital pin"
+  },
+  {
+    "question": "What is the main use of a buzzer in an Arduino project?",
+    "options": [
+      "Rotate wheels",
+      "Produce sound alerts",
+      "Connect to WiFi",
+      "Display values"
+    ],
+    "answer": "Produce sound alerts"
+  },
+  {
+    "question": "A buzzer can be turned ON in Arduino using:",
+    "options": [
+      "analogRead(pin);",
+      "buzzer.play();",
+      "digitalWrite(pin, HIGH);",
+      "turnOn(pin);"
+    ],
+    "answer": "digitalWrite(pin, HIGH);"
+  },
+  {
+    "question": "In an automatic waste bin, the ultrasonic sensor:",
+    "options": [
+      "Collects garbage",
+      "Measures smell",
+      "Detects hand movement",
+      "Produces sound"
+    ],
+    "answer": "Detects hand movement"
+  },
+  {
+    "question": "What triggers the servo to open the bin lid?",
+    "options": ["Timer", "Switch", "Sensor detecting object", "Random number"],
+    "answer": "Sensor detecting object"
+  },
+  {
+    "question": "The buzzer in an automatic door may indicate:",
+    "options": [
+      "No power",
+      "Hand detected",
+      "Door fully open",
+      "All of the above"
+    ],
+    "answer": "All of the above"
+  },
+  {
+    "question": "Which component is NOT needed for automatic bin or door?",
+    "options": ["Servo", "Ultrasonic sensor", "Resistor", "Buzzer"],
+    "answer": "Resistor"
+  },
+  {
+    "question": "What is the role of delay() in the automation project?",
+    "options": [
+      "Stops code",
+      "Plays music",
+      "Waits before action",
+      "Resets Arduino"
+    ],
+    "answer": "Waits before action"
+  },
+  {
+    "question": "What is the first step in using the ultrasonic sensor?",
+    "options": [
+      "Read voltage",
+      "Send trigger pulse",
+      "Wait for button press",
+      "Activate motor"
+    ],
+    "answer": "Send trigger pulse"
+  },
+  {
+    "question": "How do you keep the door open for 2 seconds after detection?",
+    "options": [
+      "delay(200);",
+      "delay(2000);",
+      "servo.detach();",
+      "digitalRead();"
+    ],
+    "answer": "delay(2000);"
+  },
+  {
+    "question": "What ensures the lid or door closes after use?",
+    "options": [
+      "delay() and reset angle",
+      "random function",
+      "Serial monitor",
+      "attach again"
+    ],
+    "answer": "delay() and reset angle"
+  },
+  {
+    "question": "Why is distance <= 10 used in automation?",
+    "options": [
+      "To detect high voltage",
+      "To sense objects close by",
+      "To close the door",
+      "To charge battery"
+    ],
+    "answer": "To sense objects close by"
+  },
+  {
+    "question": "What will servo.write(0); do in a project?",
+    "options": [
+      "Turn buzzer ON",
+      "Move servo to closed position",
+      "Activate ultrasonic sensor",
+      "Restart Arduino"
+    ],
+    "answer": "Move servo to closed position"
+  },
+  {
+    "question": "Why use an if-statement in automation?",
+    "options": [
+      "To loop",
+      "To check condition before action",
+      "To print values",
+      "To attach sensor"
+    ],
+    "answer": "To check condition before action"
+  },
+  {
+    "question": "Which function runs forever in Arduino?",
+    "options": ["setup()", "loop()", "define()", "main()"],
+    "answer": "loop()"
+  },
+  {
+    "question": "A servo stops responding during project. What's a likely cause?",
+    "options": [
+      "No sensor",
+      "Poor wiring or low voltage",
+      "Wrong software",
+      "Lack of USB"
+    ],
+    "answer": "Poor wiring or low voltage"
+  },
+  {
+    "question": "In automation, which component senses?",
+    "options": ["Servo", "LED", "Ultrasonic sensor", "Buzzer"],
+    "answer": "Ultrasonic sensor"
+  },
+  {
+    "question": "The purpose of automation projects is to:",
+    "options": [
+      "Learn games",
+      "Reduce human effort",
+      "Increase electricity",
+      "Build websites"
+    ],
+    "answer": "Reduce human effort"
+  },
+  {
+    "question": "If ultrasonic sensor always returns 0, what’s the issue?",
+    "options": [
+      "Servo broken",
+      "Sensor not wired or defective",
+      "Buzzer too loud",
+      "Pin 13 is used"
+    ],
+    "answer": "Sensor not wired or defective"
+  },
+  {
+    "question": "To open a door only when something is near, you use:",
+    "options": ["if (distance <= 10)", "servo.attach()", "delay()", "for loop"],
+    "answer": "if (distance <= 10)"
+  },
+  {
+    "question": "In automation, the best way to test sensors is:",
+    "options": [
+      "Ask a friend",
+      "Guess distances",
+      "Use Serial Monitor",
+      "Remove power"
+    ],
+    "answer": "Use Serial Monitor"
+  }
+]

@@ -1,0 +1,25 @@
+@use '../abstracts/mixins.scss' as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+/** Using 'universal selector' for initial setting **/
+
+*,
+::after,
+::before {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%; // The initial web browser 'font-size' 10px
+    font-family: 'Montserrat', sans-serif;
+    // line-height: 1.6;
+
+    @include mediaQuery(tab-land) {
+        font-size: 56.25%;
+    }
+
+    @include mediaQuery(tab-port) {
+        font-size: 50%;
+    }
+}

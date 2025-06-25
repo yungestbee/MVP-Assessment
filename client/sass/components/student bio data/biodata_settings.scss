@@ -1,0 +1,61 @@
+@use '../../abstracts/variable' as *;
+
+.form {
+    width: 60rem;
+    //width: 100%;
+    padding: 3rem 2rem;
+    border: .1rem solid $main-bg-color;
+    background-color: $secondary-color;
+    border-radius: 3rem;
+    
+    &__group {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    &__text {
+        font-size: 1.8rem;
+        font-weight: 600;
+    }
+
+    &__input {
+        height: 4.5rem; width: 70%;
+        padding: .5rem;
+        border: 1px solid $veryDarkCyanFade;
+        border-radius: .6rem;
+        font-size: 1.8rem;
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    &__btn {
+        width: 100%;
+        font-size: 1.8rem;
+        font-weight: 500;
+        padding: 1.5rem;
+        border-radius: .6rem;
+        border: 0;
+        cursor: pointer;
+        color: $secondary-color;
+        background-color: $main-btn-color;
+        transition: all .2s ease-in-out ;
+
+        &:active {
+            transform: translateY(1rem);
+        }
+    }
+}
+
+.btn-proceed {
+    background-color: $main-btn-color;
+    border: 1px solid $secondary-color;
+    border-radius: 3px;
+    width: 20rem;
+    padding: 1rem 1.5rem;
+    font-size: 1.8rem;
+    color: $secondary-color;
+    cursor: pointer;
+}

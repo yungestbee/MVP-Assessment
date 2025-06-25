@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#body{
+    background: linear-gradient(to right, var(--primaryColor), #4062AB);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    /* font-size: 3rem; */
+}
+.overall{
+    border: none;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 32rem;
+    width: 100%;
+    height: auto;
+}
+.text1{
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--textColor);
+}
+.group2{
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+.group2 input{
+    padding-top: 1rem 0.5rem 0.5rem;
+    font-size: 1.3rem;
+    background: transparent;
+    outline: none;
+    /* width: 24rem; */
+    border: none;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+.aa{
+    margin-top: 2rem;
+    text-align: right;
+}
+.link{
+    font-size: 1.5rem;
+    color: var(--textColor);
+    text-decoration: none;
+}
+.link:hover{
+    text-decoration: underline;
+}
+.btn-top{
+    margin-top: 2rem;
+    text-align: center;
+}
+.btn{
+    padding: 0.8rem 2rem;
+    background-color: var(--btnColor);
+    border: none;
+    border-radius: 2rem;
+    color: #fff;
+    cursor: pointer;
+    margin: 0 auto;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.btn:hover{
+    background-color: #d7507f;
+    transform: scale(1.05);
+}
+.error{
+    color: #f44336;
+    background-color: #ffe6e6;
+    border: 1px solid #f44336;
+    padding: 0.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
+.forgot-wrapper { 
+   background: #fff;
+  padding: 3rem;
+  border-radius: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  max-width: 30rem;
+  width: 100%;
+  /* text-align: center; */
+  height: auto; 
+   color: #fff; 
+} 
+input::placeholder { 
+   color: #aaa;  
+   font-size: 1.2rem;  
+   opacity: 1;   
+}
+
+z
+
+.forgot-wrapper .btn {
+  width: 100%; 
+  padding: 0.8rem; 
+  background-color: var(--btnColor);  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+} 
+
+ .forgot-wrapper .btn:hover {
+  background-color: #5a67d8;
+  transform: scale(1.03);
+} 
+
+ .forgot-wrapper .error {
+  color: #e53e3e;
+  background-color: #fff5f5;
+  border: 1px solid #e53e3e;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+} 
+.back-btn {
+  background-color: transparent;
+  color: var(--textColor);
+  border: none;
+  font-size: 2.5rem;
+  font-weight: 900;
+  cursor: pointer; 
+  margin-bottom: 3rem;
+   text-align: right;
+}
+
+.back-btn:hover {
+  /* text-decoration: underline; */
+  color: #333; 
+}
+
+.reset-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.reset-wrapper {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 250px;
+  width: 100%;
+}
+
+.reset-input {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  outline: none;
+}
+
+.reset-input:focus {
+  border-color: #4a90e2;
+}
+
+
+.error {
+  color: #e53e3e;
+  background: #fff5f5;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.success {
+  color: #2f855a;
+  background: #f0fff4;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.reset-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.reset-btn:hover {
+  background-color: #357ABD;
+}

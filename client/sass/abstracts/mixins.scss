@@ -1,0 +1,28 @@
+/** Setting up 'Media Query' **/
+// Phone => 0 - 600px
+// Tablet Portrait => 600px - 900px
+// Tablet Landscape => 900px - 1200px
+// Desktop => 1200px - 1800px
+// Big Desktop => 1800px - Above
+
+@mixin mediaQuery($breakPoint) {
+    @if $breakPoint == phone { /** When the screen size changes to 'Mobile phone' **/
+        @media (max-width: 37.5em) {
+            @content
+        };
+    }
+
+    @if $breakPoint == tab-port { /** When the screen size changes to 'Tablet Portrait' **/
+        @media (max-width: 56.25em) { 
+            @content 
+        };
+    }
+
+    @if $breakPoint == tab-land { // When the screen size changes to 'Tablet Landscape'
+        @media (min-width: 75em) {
+            @content
+        };
+    }
+}
+
+

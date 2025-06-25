@@ -1,0 +1,252 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+/** Setting up 'Media Query' **/
+/** Using 'universal selector' for initial setting **/
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  font-family: "Montserrat", sans-serif;
+  line-height: 1.6;
+  /** When the screen size changes to 'Tablet Portrait' **/
+}
+@media (min-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media (max-width: 56.25em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+.heading__primary {
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #4062AB;
+}
+
+.mb-xlg {
+  margin-bottom: 3.2rem;
+}
+
+.mb-lg {
+  margin-bottom: 2rem;
+}
+
+.mb-sm {
+  margin-bottom: 1.5rem;
+}
+
+.benefits__heading {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #4062AB;
+}
+.benefits__ul {
+  list-style: none;
+}
+.benefits__li {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 2;
+}
+.benefits__li::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  background-color: #FFFFFF;
+  border-radius: 10rem;
+  border: 0.2rem solid #4062AB;
+  margin-right: 2rem;
+}
+
+.description__para {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.description__ready {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+.description__link {
+  background-color: #C23364;
+  border-radius: 10rem;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.8rem;
+  padding: 1.2rem 3rem;
+  text-decoration: none;
+}
+
+.commitment {
+  background-color: #f3e1e9;
+  border-radius: 2rem;
+  padding: 1.5rem;
+}
+.commitment__heading {
+  font-size: 2rem;
+  line-height: 2;
+  font-weight: 600;
+  color: #4062AB;
+}
+.commitment__para {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+.commitment__join {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.8rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.form {
+  width: 60rem;
+  padding: 3rem 2rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  background-color: #FFFFFF;
+  border-radius: 3rem;
+}
+.form__group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.form__text {
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+.form__input {
+  height: 4.5rem;
+  width: 70%;
+  padding: 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  border-radius: 0.6rem;
+  font-size: 1.8rem;
+}
+.form__input:focus {
+  outline: 0;
+}
+.form__btn {
+  width: 100%;
+  font-size: 1.8rem;
+  font-weight: 500;
+  padding: 1.5rem;
+  border-radius: 0.6rem;
+  border: 0;
+  cursor: pointer;
+  color: #FFFFFF;
+  background-color: #C23364;
+  transition: all 0.2s ease-in-out;
+}
+.form__btn:active {
+  transform: translateY(1rem);
+}
+
+.btn-proceed {
+  background-color: #C23364;
+  border: 1px solid #FFFFFF;
+  border-radius: 3px;
+  width: 20rem;
+  padding: 1rem 1.5rem;
+  font-size: 1.8rem;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+.welcome {
+  min-height: 100vh;
+  background-color: #FFFFFF;
+  padding: 3rem 7rem;
+  /** When the screen is Tablet landscape **/
+  /** When the screen size changes to 'Tablet Portrait' **/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 56.25em) {
+  .welcome {
+    padding: 1.5rem 2rem;
+  }
+}
+.welcome__secondary {
+  background-color: #f3e1e9;
+  border-radius: 2rem;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  max-width: 100rem;
+  width: 100%;
+  text-align: center;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  padding: 1.5rem 7rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  background-color: #FFFFFF;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /** When the screen size changes to 'Mobile phone' **/
+}
+.header-logo{
+  width: 8rem;
+}
+@media (max-width: 37.5em) {
+  .header {
+    padding: 2rem 2rem;
+  }
+}
+.header__admin-btn-box {
+  /** When the screen is Tablet landscape **/
+}
+.header__admin-text {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-right: 1rem;
+}
+.header__btn {
+  border: 0;
+  border-radius: 0.3rem;
+  background-color: #FFFFFF;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem 1.2rem;
+  font-size: 1.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #E7418F;
+  letter-spacing: 0;
+  transition: letter-spacing 0.3s ease-in-out;
+}
+.header__btn:hover {
+  letter-spacing: 0.1rem;
+}
+
+.student-bio-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #FFFFFF;
+}
+
+/*# sourceMappingURL=styles.css.map */

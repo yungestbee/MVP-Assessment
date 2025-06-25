@@ -1,0 +1,10 @@
+@use '../abstracts/variable' as *;
+
+.student-bio-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+    background-color: $main-bg-color;
+}

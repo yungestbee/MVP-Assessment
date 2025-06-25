@@ -1,0 +1,10 @@
+@use '../abstracts/variable' as *;
+
+.heading {
+    
+    &__primary {
+        font-size: 3.5rem; 
+        font-weight: 900;
+        color: $main-text-color;
+    }
+}
