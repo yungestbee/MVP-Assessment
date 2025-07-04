@@ -1,0 +1,387 @@
+[
+  {
+    "question": "What is the function of the Arduino Uno?",
+    "options": [
+      "Play games",
+      "Connect to internet",
+      "Control hardware using code",
+      "Store pictures"
+    ],
+    "answer": "Control hardware using code"
+  },
+  {
+    "question": "Which of the following is a microcontroller board?",
+    "options": [
+      "Arduino Uno",
+      "Automatic bulb board",
+      "TV remote",
+      "Pictoblox"
+    ],
+    "answer": "Arduino Uno"
+  },
+  {
+    "question": "What does the loop() function do in Arduino code?",
+    "options": [
+      "Stops the code",
+      "Runs only once",
+      "Runs over and over again",
+      "Uploads code"
+    ],
+    "answer": "Runs over and over again"
+  },
+  {
+    "question": "What kind of power supply does Arduino use?",
+    "options": [
+      "Solar",
+      "5V via USB or adapter (SMPS)",
+      "Petrol",
+      "12V AC only"
+    ],
+    "answer": "5V via USB or adapter (SMPS)"
+  },
+  {
+    "question": "Which pin is used to connect to ground on the Arduino?",
+    "options": ["5V", "A0", "GND", "D13"],
+    "answer": "GND"
+  },
+  {
+    "question": "What is the name of the software used to write Arduino programs?",
+    "options": ["Excel", "Word", "Pictoblox", "CorelDraw"],
+    "answer": "Pictoblox"
+  },
+  {
+    "question": "What kind of cable is used to upload code to Arduino Uno?",
+    "options": ["HDMI", "USB-B to USB-A", "USB-C", "Ethernet"],
+    "answer": "USB-B to USB-A"
+  },
+  {
+    "question": "What programming language does the Arduino uno understand?",
+    "options": ["Java", "Python", "C++", "HTML"],
+    "answer": "C++"
+  },
+  {
+    "question": "How many digital pins are available on Arduino Uno?",
+    "options": ["8", "10", "14", "20"],
+    "answer": "14"
+  },
+  {
+    "question": "What command is used to give voltage to a pin in Arduino?",
+    "options": [
+      "digitalWrite(pin, HIGH);",
+      "digitalRead(pin);",
+      "servo.attach(pin);",
+      "loop();"
+    ],
+    "answer": "digitalWrite(pin, HIGH);"
+  },
+  {
+    "question": "What does an ultrasonic sensor measure?",
+    "options": ["Temperature", "Light", "Distance", "Pressure"],
+    "answer": "Distance"
+  },
+  {
+    "question": "What are the two main pins of an ultrasonic sensor?",
+    "options": ["VCC and GND", "TRIG and ECHO", "LED and Buzzer", "RX and TX"],
+    "answer": "TRIG and ECHO"
+  },
+  {
+    "question": "What unit is used to measure distance by the sensor?",
+    "options": ["Kilometers", "Centimeters", "Liters", "Kilograms"],
+    "answer": "Centimeters"
+  },
+  {
+    "question": "What does TRIG stand for?",
+    "options": ["Trigger", "Trip", "Try", "Track"],
+    "answer": "Trigger"
+  },
+  {
+    "question": "The ECHO pin receives:",
+    "options": ["Heat", "Light", "Reflected sound wave", "Vibration"],
+    "answer": "Reflected sound wave"
+  },
+  {
+    "question": "What happens when the sensor detects something close?",
+    "options": [
+      "It sends a high value",
+      "It shuts down",
+      "It plays music",
+      "It restarts the Arduino"
+    ],
+    "answer": "It sends a high value"
+  },
+  {
+    "question": "What function is used to measure pulse length?",
+    "options": ["delay()", "pulseIn()", "digitalRead()", "millis()"],
+    "answer": "pulseIn()"
+  },
+  {
+    "question": "What is the range of a typical ultrasonic sensor (HC-SR04)?",
+    "options": ["2–400 cm", "1–10 m", "0–50 m", "5–1000 cm"],
+    "answer": "2–400 cm"
+  },
+  {
+    "question": "The ultrasonic sensor uses what kind of waves?",
+    "options": ["Water", "Radio", "Sound", "Light"],
+    "answer": "Sound"
+  },
+  {
+    "question": "If no object is detected, the ultrasonic sensor returns:",
+    "options": ["0", "Infinity", "A large number", "-1"],
+    "answer": "A large number"
+  },
+  {
+    "question": "What is a servo motor used for?",
+    "options": [
+      "Heating",
+      "Blinking lights",
+      "Rotating to a certain angle",
+      "Making sound"
+    ],
+    "answer": "Rotating to a certain angle"
+  },
+  {
+    "question": "What is the typical rotation range of a servo?",
+    "options": [
+      "0–180 degrees",
+      "0–360 degrees",
+      "0–100 degrees",
+      "0–90 degrees"
+    ],
+    "answer": "0–180 degrees"
+  },
+  {
+    "question": "How many wires does a servo have?",
+    "options": ["2", "3", "4", "5"],
+    "answer": "3"
+  },
+  {
+    "question": "What are the wire colors of a typical servo motor?",
+    "options": [
+      "Red, black, orange",
+      "Blue, green, red",
+      "White, grey, black",
+      "Yellow, orange, green"
+    ],
+    "answer": "Red, black, orange"
+  },
+  {
+    "question": "What pin controls the servo angle in Arduino?",
+    "options": ["GND", "5V", "PWM digital pin", "Analog pin"],
+    "answer": "PWM digital pin"
+  },
+  {
+    "question": "What command is used to move a servo in Arduino?",
+    "options": [
+      "servo.rotate()",
+      "servo.write(angle);",
+      "servo.turn(angle);",
+      "rotate(angle);"
+    ],
+    "answer": "servo.write(angle);"
+  },
+  {
+    "question": "What library must be included to use servos?",
+    "options": ["LED.h", "motorLib.h", "Servo.h", "Distance.h"],
+    "answer": "Servo.h"
+  },
+  {
+    "question": "What happens if the servo is told to move to 180 degrees?",
+    "options": [
+      "It turns off",
+      "It resets",
+      "It moves to the end of its range",
+      "It makes a sound"
+    ],
+    "answer": "It moves to the end of its range"
+  },
+  {
+    "question": "What voltage does a servo motor need?",
+    "options": ["3.3V", "5V", "12V", "1.5V"],
+    "answer": "5V"
+  },
+  {
+    "question": "Servo motors are useful in:",
+    "options": ["Speakers", "Garage systems", "Keyboards", "Power banks"],
+    "answer": "Garage systems"
+  },
+  {
+    "question": "What does LED stand for?",
+    "options": [
+      "Light Energy Device",
+      "Light Emitting Diode",
+      "Low Energy Device",
+      "Long Electric Display"
+    ],
+    "answer": "Light Emitting Diode"
+  },
+  {
+    "question": "What happens if an LED is connected backward?",
+    "options": [
+      "It burns",
+      "It still works",
+      "It doesn’t turn on",
+      "It explodes"
+    ],
+    "answer": "It doesn’t turn on"
+  },
+  {
+    "question": "What does the longer leg of the LED represent?",
+    "options": ["Negative", "GND", "Positive", "Neutral"],
+    "answer": "Positive"
+  },
+  {
+    "question": "What is used to limit current to an LED?",
+    "options": ["Battery", "Resistor", "Diode", "Switch"],
+    "answer": "Resistor"
+  },
+  {
+    "question": "Which command turns ON an LED in Arduino?",
+    "options": [
+      "analogRead()",
+      "digitalWrite(pin, HIGH);",
+      "digitalRead(pin);",
+      "servo.write(90);"
+    ],
+    "answer": "digitalWrite(pin, HIGH);"
+  },
+  {
+    "question": "What happens when you set digitalWrite(pin, LOW);",
+    "options": [
+      "Pin turns ON",
+      "Pin is set to GND",
+      "Pin starts rotating",
+      "Sensor is reset"
+    ],
+    "answer": "Pin is set to GND"
+  },
+  {
+    "question": "Why should you use a resistor with an LED?",
+    "options": [
+      "To power the LED",
+      "To change color",
+      "To prevent it from burning",
+      "To make it blink"
+    ],
+    "answer": "To prevent it from burning"
+  },
+  {
+    "question": "Which pin mode must be set before using an LED?",
+    "options": [
+      "pinMode(pin, INPUT);",
+      "pinMode(pin, OUTPUT);",
+      "pinMode(pin, HIGH);",
+      "pinMode(pin, LED);"
+    ],
+    "answer": "pinMode(pin, OUTPUT);"
+  },
+  {
+    "question": "What happens when too much voltage goes to an LED?",
+    "options": [
+      "It becomes brighter",
+      "It turns off",
+      "It gets damaged",
+      "It stores energy"
+    ],
+    "answer": "It gets damaged"
+  },
+  {
+    "question": "Where are LEDs used in robotics?",
+    "options": [
+      "Displaying status",
+      "Lifting objects",
+      "Measuring temperature",
+      "Sending audio"
+    ],
+    "answer": "Displaying status"
+  },
+  {
+    "question": "What does the ultrasonic sensor do in an automatic garage system?",
+    "options": [
+      "Measure light",
+      "Detect approaching object",
+      "Display temperature",
+      "Play sound"
+    ],
+    "answer": "Detect approaching object"
+  },
+  {
+    "question": "What part opens the garage door in the system?",
+    "options": ["Buzzer", "LED", "Servo motor", "Ultrasonic sensor"],
+    "answer": "Servo motor"
+  },
+  {
+    "question": "What happens when a car is near the garage?",
+    "options": [
+      "LED turns blue",
+      "Buzzer plays music",
+      "Garage opens",
+      "Servo turns off"
+    ],
+    "answer": "Garage opens"
+  },
+  {
+    "question": "What happens after the car leaves?",
+    "options": [
+      "Door remains open",
+      "LED turns off",
+      "Door closes after delay",
+      "Arduino shuts down"
+    ],
+    "answer": "Door closes after delay"
+  },
+  {
+    "question": "What makes the garage project automatic?",
+    "options": [
+      "It uses timers",
+      "It works with sensors",
+      "It uses a button",
+      "It uses a phone"
+    ],
+    "answer": "It works with sensors"
+  },
+  {
+    "question": "What controls the timing in automation?",
+    "options": ["delay()", "tone()", "analogWrite()", "setup()"],
+    "answer": "delay()"
+  },
+  {
+    "question": "If the sensor always detects something, what could be wrong?",
+    "options": [
+      "No power",
+      "Too much delay",
+      "Object left in front",
+      "Servo is rotating too fast"
+    ],
+    "answer": "Object left in front"
+  },
+  {
+    "question": "What is the purpose of Serial.begin(9600); in Arduino?",
+    "options": [
+      "Open servo",
+      "Start code",
+      "Turn LED ON",
+      "Start communication"
+    ],
+    "answer": "Start communication"
+  },
+  {
+    "question": "What does a digital pin do?",
+    "options": [
+      "Sends sound",
+      "Reads text",
+      "Sends ON or OFF signals",
+      "Plays music"
+    ],
+    "answer": "Sends ON or OFF signals"
+  },
+  {
+    "question": "What is the first step in building the project?",
+    "options": [
+      "Coding",
+      "Wiring components",
+      "Watching video",
+      "Playing sound"
+    ],
+    "answer": "Wiring components"
+  }
+]

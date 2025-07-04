@@ -10,6 +10,16 @@ class StudentController {
     }
 
     try {
+      const preStudent = await Student.findOne({
+        lastName: lastName,
+        firstName: firstName,
+      });
+      if (preStudent) {
+        return res.status(203).json({
+          status: "success",
+          message: "Assessment attempted",
+        });
+      }
       const student = new Student({
         firstName,
         lastName,
@@ -17,8 +27,6 @@ class StudentController {
       });
 
       await student.save();
-
-
       return res.status(201).json({
         status: "success",
         message: "Student created successfully",
@@ -52,6 +60,7 @@ class StudentController {
 
   // GET: Get all students
   static async getAllStudents(req, res) {
+    console.log("first")
     try {
       const students = await Student.find();
 
@@ -71,8 +80,8 @@ class StudentController {
     let payload = {
       score: score,
       totalQuestions: total,
-      timeSubmitted: timestamp
-    }
+      timeSubmitted: timestamp,
+    };
 
     try {
       const student = await Student.findByIdAndUpdate(

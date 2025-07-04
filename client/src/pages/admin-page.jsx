@@ -1,146 +1,150 @@
-"use client"
+"use client";
 
-import { useState, useRef } from "react"
-import "../css/admin-page.css"
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import "../css/admin-page.css";
 
 export default function AdminPage() {
-  // Mock data
-  const schools = [
-    { id: "all", name: "All Schools" },
-    { id: "lincoln-high", name: "Lincoln High School" },
-    { id: "washington-middle", name: "Washington Middle School" },
-    { id: "jefferson-elementary", name: "Jefferson Elementary" },
-    { id: "roosevelt-academy", name: "Roosevelt Academy" },
-  ]
+  const [students, setStudents] = useState([]);
+  const [schools, setSchools] = useState([{ id: "all", name: "All Schools" }]);
+  const [selectedSchool, setSelectedSchool] = useState("all");
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [isDragOver, setIsDragOver] = useState(false);
+  const fileInputRef = useRef(null);
+  const API_BASE = import.meta.env.VITE_API_BASE;
 
-  const allStudents = [
-    {
-      id: 1,
-      name: "Alice Johnson",
-      email: "alice.johnson@email.com",
-      school: "Lincoln High School",
-      grade: "10th",
-      enrollmentDate: "2023-09-01",
-    },
-    {
-      id: 2,
-      name: "Bob Smith",
-      email: "bob.smith@email.com",
-      school: "Washington Middle School",
-      grade: "8th",
-      enrollmentDate: "2023-09-15",
-    },
-    {
-      id: 3,
-      name: "Carol Davis",
-      email: "carol.davis@email.com",
-      school: "Lincoln High School",
-      grade: "11th",
-      enrollmentDate: "2023-08-20",
-    },
-    {
-      id: 4,
-      name: "David Wilson",
-      email: "david.wilson@email.com",
-      school: "Jefferson Elementary",
-      grade: "5th",
-      enrollmentDate: "2023-09-05",
-    },
-    {
-      id: 5,
-      name: "Emma Brown",
-      email: "emma.brown@email.com",
-      school: "Roosevelt Academy",
-      grade: "9th",
-      enrollmentDate: "2023-09-10",
-    },
-    {
-      id: 6,
-      name: "Frank Miller",
-      email: "frank.miller@email.com",
-      school: "Washington Middle School",
-      grade: "7th",
-      enrollmentDate: "2023-09-12",
-    },
-    {
-      id: 7,
-      name: "Grace Lee",
-      email: "grace.lee@email.com",
-      school: "Lincoln High School",
-      grade: "12th",
-      enrollmentDate: "2023-08-25",
-    },
-    {
-      id: 8,
-      name: "Henry Taylor",
-      email: "henry.taylor@email.com",
-      school: "Jefferson Elementary",
-      grade: "4th",
-      enrollmentDate: "2023-09-03",
-    },
-  ]
+  useEffect(() => {
+    const fetchStudents = async () => {
+      try {
+        const response = await axios.get(`${API_BASE}/api/v1/students`, {
+          withCredentials: true,
+        });
+        const studentData = response.data.data;
+        console.log(studentData);
 
-  const [selectedSchool, setSelectedSchool] = useState("all")
-  const [uploadedFile, setUploadedFile] = useState(null)
-  const [isDragOver, setIsDragOver] = useState(false)
-  const fileInputRef = useRef(null)
+        setStudents(studentData);
+
+        // Extract unique schools from student data
+        const uniqueSchools = Array.from(
+          new Set(studentData.map((student) => student.school))
+        ).map((schoolName) => ({
+          id: schoolName.toLowerCase().replace(/\s+/g, "-"),
+          name: schoolName,
+        }));
+
+        setSchools([{ id: "all", name: "All Schools" }, ...uniqueSchools]);
+      } catch (error) {
+        console.error("Failed to fetch students:", error);
+      }
+    };
+
+    fetchStudents();
+  }, []);
 
   const filteredStudents =
     selectedSchool === "all"
-      ? allStudents
-      : allStudents.filter((student) => student.school === schools.find((s) => s.id === selectedSchool)?.name)
+      ? students
+      : students.filter(
+          (student) =>
+            student.school ===
+            schools.find((s) => s.id === selectedSchool)?.name
+        );
 
   const handleFileUpload = (file) => {
-    if (
-      file.type === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
-      file.type === "application/vnd.ms-excel"
-    ) {
-      setUploadedFile(file)
-      console.log("File uploaded:", file.name)
+    const isExcel =
+      file.type ===
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" ||
+      file.type === "application/vnd.ms-excel";
+    if (isExcel) {
+      setUploadedFile(file);
+      console.log("File uploaded:", file.name);
     } else {
-      alert("Please upload an Excel file (.xlsx or .xls)")
+      alert("Please upload an Excel file (.xlsx or .xls)");
     }
-  }
+  };
 
   const handleDragOver = (e) => {
-    e.preventDefault()
-    setIsDragOver(true)
-  }
+    e.preventDefault();
+    setIsDragOver(true);
+  };
 
   const handleDragLeave = (e) => {
-    e.preventDefault()
-    setIsDragOver(false)
-  }
+    e.preventDefault();
+    setIsDragOver(false);
+  };
 
   const handleDrop = (e) => {
-    e.preventDefault()
-    setIsDragOver(false)
-    const files = e.dataTransfer.files
+    e.preventDefault();
+    setIsDragOver(false);
+    const files = e.dataTransfer.files;
     if (files.length > 0) {
-      handleFileUpload(files[0])
+      handleFileUpload(files[0]);
     }
-  }
+  };
 
   const handleFileInputChange = (e) => {
-    const files = e.target.files
+    const files = e.target.files;
     if (files && files.length > 0) {
-      handleFileUpload(files[0])
+      handleFileUpload(files[0]);
     }
-  }
+  };
+
+  const handleUploadOnline = async () => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BASE}/api/v1/sync`
+      );
+      alert(response.data.message);
+    } catch (err) {
+      console.error(err);
+      alert("Sync failed. Make sure you're connected to the internet.");
+    }
+  };
 
   const handleUploadClick = () => {
-    fileInputRef.current?.click()
-  }
+    fileInputRef.current?.click();
+  };
 
   const handleSubmitAssessment = () => {
     if (uploadedFile) {
-      alert(`Assessment questions from ${uploadedFile.name} have been uploaded successfully!`)
-      setUploadedFile(null)
+      alert(
+        `Assessment questions from ${uploadedFile.name} have been uploaded successfully!`
+      );
+      setUploadedFile(null);
       if (fileInputRef.current) {
-        fileInputRef.current.value = ""
+        fileInputRef.current.value = "";
       }
     }
-  }
+  };
+
+  const handleDownloadPDF = () => {
+    const doc = new jsPDF();
+    const title =
+      selectedSchool === "all"
+        ? "All Students"
+        : `Students of ${schools.find((s) => s.id === selectedSchool)?.name}`;
+
+    doc.text(title, 14, 15);
+
+    const tableData = filteredStudents.map((student) => [
+      student.id,
+      student.name,
+      student.email,
+      student.school,
+      student.grade,
+      student.enrollmentDate,
+    ]);
+
+    doc.autoTable({
+      head: [["ID", "Name", "Email", "School", "Grade", "Enrollment Date"]],
+      body: tableData,
+      startY: 20,
+    });
+
+    doc.save(`${title.replace(/\s+/g, "_").toLowerCase()}_records.pdf`);
+  };
 
   return (
     <div className="admin-container">
@@ -202,6 +206,14 @@ export default function AdminPage() {
 
           <div className="table-info">
             <p>Showing {filteredStudents.length} students</p>
+            <div>
+              <button className="download-btn" onClick={handleDownloadPDF}>
+                Download as PDF
+              </button>
+              <button onClick={handleUploadOnline} className="sync-btn">
+                Upload Online
+              </button>
+            </div>
           </div>
         </section>
 
@@ -238,7 +250,9 @@ export default function AdminPage() {
               <div className="file-preview">
                 <div className="file-info">
                   <span className="file-name">📄 {uploadedFile.name}</span>
-                  <span className="file-size">({(uploadedFile.size / 1024 / 1024).toFixed(2)} MB)</span>
+                  <span className="file-size">
+                    ({(uploadedFile.size / 1024 / 1024).toFixed(2)} MB)
+                  </span>
                 </div>
                 <button className="submit-btn" onClick={handleSubmitAssessment}>
                   Upload Assessment Questions
@@ -249,5 +263,5 @@ export default function AdminPage() {
         </section>
       </main>
     </div>
-  )
+  );
 }

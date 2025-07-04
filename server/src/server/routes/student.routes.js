@@ -11,7 +11,6 @@ router.get(
 );
 router.get(
   "/",
-  AuthMiddleware.authenticateUser,
   StudentController.getAllStudents
 );
 router.post("/submit-score", StudentController.updateStudent);

@@ -5,11 +5,7 @@ export const WelcomePage = () => {
     <>
       <header className="header">
         <div>
-          <img
-            src="../../assets/TalentCodeLogo.png"
-            alt="logo"
-            className="header-logo"
-          />
+          <img src="TalentCodeLogo.png" alt="logo" className="header-logo" />
         </div>
         <div className="header__nav-links">
           <div className="header__admin-btn-box">

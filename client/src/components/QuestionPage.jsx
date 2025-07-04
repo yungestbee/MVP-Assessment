@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import quizDataRaw from "./questions.json";
+import seniorQuizDataRaw from "./senior_questions.json";
+import juniorQuizDataRaw from "./junior_questions.json";
 import "../css/quesionPages.css";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 // Utility to shuffle an array
 const shuffleArray = (array) => {
@@ -24,7 +26,28 @@ const QuestionPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const shuffled = shuffleArray(quizDataRaw);
+    let gradeStr = localStorage.getItem("std_grade");
+
+    try {
+      gradeStr = JSON.parse(gradeStr); // removes inner quotes
+    } catch {
+      console.warn("Could not parse gradeStr as JSON");
+    }
+    console.log("Parsed gradeStr:", gradeStr);
+    const grade = Number(gradeStr);
+    console.log("Converted grade:", grade);
+
+    let selectedData = [];
+    if (grade >= 7 && grade <= 9) {
+      selectedData = juniorQuizDataRaw;
+    } else if (grade >= 10 && grade <= 12) {
+      selectedData = seniorQuizDataRaw;
+    } else {
+      console.warn("Invalid grade. Defaulting to junior questions.");
+      selectedData = juniorQuizDataRaw;
+    }
+
+    const shuffled = shuffleArray(selectedData);
     setQuizData(shuffled);
   }, []);
 
@@ -71,7 +94,7 @@ const QuestionPage = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           Swal.fire({
-            title: "Submited!",
+            title: "Submitted!",
             text: "Your Score has been saved.",
             icon: "success",
           });
@@ -110,7 +133,6 @@ const QuestionPage = () => {
 
     let neededId = localStorage.getItem("std_id");
 
-    // If it starts and ends with quotes, strip them
     if (neededId?.startsWith('"') && neededId.endsWith('"')) {
       neededId = neededId.slice(1, -1);
     }
@@ -124,7 +146,7 @@ const QuestionPage = () => {
 
     try {
       const res = await fetch(
-        "http://localhost:8000/api/v1/students/submit-score",
+        `${API_BASE}/api/v1/students/submit-score`,
         {
           method: "POST",
           headers: {
@@ -149,7 +171,6 @@ const QuestionPage = () => {
   const currentQuestion = quizData[currentQuestionIndex];
   const selectedOption = userAnswers[currentQuestionIndex] || null;
 
-  // Score is recalculated on result screen
   const score = Object.keys(userAnswers).reduce((acc, key) => {
     const question = quizData[key];
     const selected = userAnswers[key];

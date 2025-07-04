@@ -3,6 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "../css/login.css";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -17,23 +18,6 @@ export const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault(); // Prevent page refresh
-
-    // Validation checks
-    // if (!email || !password) {
-    //   setError("Email and password are required");
-    //   return;
-    // }
-
-    // if (email.includes(" ")) {
-    //   setError("Email should not contain spaces");
-    //   return;
-    // }
-
-    // if (!validateEmail(email)) {
-    //   setError("Enter a valid email address");
-    //   return;
-    // }
-
     if (password.length < 8) {
       setError("Password must be at least 8 characters");
       return;
@@ -54,7 +38,7 @@ export const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/v1/login",
+        `${API_BASE}/api/v1/login`,
         {
           username,
           password,

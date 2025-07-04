@@ -69,7 +69,6 @@ class AuthController {
       if (user.tempPassword === user.password) {
         const isTempMatch = await bcrypt.compare(password, user.tempPassword);
         if (isTempMatch) {
-          console.log("first");
           const payload = {
             user: {
               id: user.id,
