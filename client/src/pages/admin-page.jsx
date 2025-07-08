@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import jsPDF from "jspdf";
-import "jspdf-autotable";
+import autoTable from "jspdf-autotable"; // ← use named import
 import "../css/admin-page.css";
 
 export default function AdminPage() {
@@ -28,16 +28,6 @@ export default function AdminPage() {
         console.log(studentData);
 
         setStudents(studentData);
-
-        // Extract unique schools from student data
-        const uniqueSchools = Array.from(
-          new Set(studentData.map((student) => student.school))
-        ).map((schoolName) => ({
-          id: schoolName.toLowerCase().replace(/\s+/g, "-"),
-          name: schoolName,
-        }));
-
-        setSchools([{ id: "all", name: "All Schools" }, ...uniqueSchools]);
       } catch (error) {
         console.error("Failed to fetch students:", error);
       }
@@ -46,14 +36,7 @@ export default function AdminPage() {
     fetchStudents();
   }, []);
 
-  const filteredStudents =
-    selectedSchool === "all"
-      ? students
-      : students.filter(
-          (student) =>
-            student.school ===
-            schools.find((s) => s.id === selectedSchool)?.name
-        );
+  const filteredStudents = students;
 
   const handleFileUpload = (file) => {
     const isExcel =
@@ -124,28 +107,27 @@ export default function AdminPage() {
 
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
+    autoTable(doc, {
+      head: [
+        ["ID", "First Name", "Last Name", "Grade", "Score", "Time Submitted"],
+      ],
+      body: filteredStudents.map((student, index) => [
+        student.id || index + 1,
+        student.firstName || "",
+        student.lastName || "",
+        student.grade || "",
+        student.score?.score ?? "N/A",
+        student.score?.timeSubmitted ?? "N/A",
+      ]),
+      startY: 20,
+    });
+
     const title =
       selectedSchool === "all"
         ? "All Students"
         : `Students of ${schools.find((s) => s.id === selectedSchool)?.name}`;
 
     doc.text(title, 14, 15);
-
-    const tableData = filteredStudents.map((student) => [
-      student.id,
-      student.name,
-      student.email,
-      student.school,
-      student.grade,
-      student.enrollmentDate,
-    ]);
-
-    doc.autoTable({
-      head: [["ID", "Name", "Email", "School", "Grade", "Enrollment Date"]],
-      body: tableData,
-      startY: 20,
-    });
-
     doc.save(`${title.replace(/\s+/g, "_").toLowerCase()}_records.pdf`);
   };
 
@@ -163,7 +145,7 @@ export default function AdminPage() {
         <section className="admin-section">
           <div className="section-header">
             <h2>Student Management</h2>
-            <div className="filter-controls">
+            {/* <div className="filter-controls">
               <label htmlFor="school-filter">Filter by School:</label>
               <select
                 id="school-filter"
@@ -177,7 +159,7 @@ export default function AdminPage() {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
           </div>
 
           <div className="table-container">
@@ -185,22 +167,22 @@ export default function AdminPage() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>School</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
                   <th>Grade</th>
-                  <th>Enrollment Date</th>
+                  <th>Score</th>
+                  <th>Time Submitted</th>
                 </tr>
               </thead>
               <tbody>
-                {filteredStudents.map((student) => (
-                  <tr key={student.id}>
+                {filteredStudents.map((student, index) => (
+                  <tr key={student.id || index}>
                     <td>{student.id}</td>
-                    <td>{student.name}</td>
-                    <td>{student.email}</td>
-                    <td>{student.school}</td>
+                    <td>{student.firstName}</td>
+                    <td>{student.lastName}</td>
                     <td>{student.grade}</td>
-                    <td>{student.enrollmentDate}</td>
+                    <td>{student.score.score}</td>
+                    <td>{student.score.timeSubmitted}</td>
                   </tr>
                 ))}
               </tbody>
