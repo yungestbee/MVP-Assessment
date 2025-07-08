@@ -21,7 +21,7 @@ const QuestionPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [showResult, setShowResult] = useState(false);
-  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes
+  const [timeLeft, setTimeLeft] = useState(1200); // 30 minutes
   const [nextButtonLabel, setNextButtonLabel] = useState("Next");
   const navigate = useNavigate();
 
@@ -33,21 +33,23 @@ const QuestionPage = () => {
     } catch {
       console.warn("Could not parse gradeStr as JSON");
     }
-    console.log("Parsed gradeStr:", gradeStr);
-    const grade = Number(gradeStr);
-    console.log("Converted grade:", grade);
 
+    const grade = Number(gradeStr);
     let selectedData = [];
+
     if (grade >= 7 && grade <= 9) {
       selectedData = juniorQuizDataRaw;
     } else if (grade >= 10 && grade <= 12) {
       selectedData = seniorQuizDataRaw;
     } else {
-      console.warn("Invalid grade. Defaulting to junior questions.");
       selectedData = juniorQuizDataRaw;
     }
 
-    const shuffled = shuffleArray(selectedData);
+    const shuffled = shuffleArray(selectedData).map((question) => ({
+      ...question,
+      options: shuffleArray(question.options),
+    }));
+
     setQuizData(shuffled);
   }, []);
 
@@ -145,16 +147,13 @@ const QuestionPage = () => {
     };
 
     try {
-      const res = await fetch(
-        `${API_BASE}/api/v1/students/submit-score`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
+      const res = await fetch(`${API_BASE}/api/v1/students/submit-score`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
       if (res.ok) {
         console.log("Score submitted successfully");

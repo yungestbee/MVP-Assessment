@@ -18,9 +18,12 @@ export default function AdminPage() {
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(`${API_BASE}/api/v1/students`, {
-          withCredentials: true,
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE}/api/v1/students`,
+          {
+            withCredentials: true,
+          }
+        );
         const studentData = response.data.data;
         console.log(studentData);
 
