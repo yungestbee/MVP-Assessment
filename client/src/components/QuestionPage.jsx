@@ -23,18 +23,29 @@ const QuestionPage = () => {
   const [showResult, setShowResult] = useState(false);
   const [timeLeft, setTimeLeft] = useState(1200); // 30 minutes
   const [nextButtonLabel, setNextButtonLabel] = useState("Next");
+  // const [grad, setGrad]  = useState("")
   const navigate = useNavigate();
 
   useEffect(() => {
-    let gradeStr = localStorage.getItem("std_grade");
+    let grader = localStorage.getItem("std_grade");
 
     try {
-      gradeStr = JSON.parse(gradeStr); // removes inner quotes
+      let gradeStr = JSON.parse(grader); // removes inner quotes
+      let graders = gradeStr.split("");
+      console.log(graders);
+      if(graders.length >= 3){
+        var grad = graders[0] + graders[1]
+        console.log(grad)
+      } else {
+        var grad = graders[0];
+        console.log(grad)
+      }
     } catch {
       console.warn("Could not parse gradeStr as JSON");
     }
 
-    const grade = Number(gradeStr);
+    const grade = Number(grad);
+    console.log(grade)
     let selectedData = [];
 
     if (grade >= 7 && grade <= 9) {

@@ -177,7 +177,7 @@ const Grade = () => {
             value={selectedGrade}
             onChange={handleChangeGrade}
           >
-            <option value="1">Grade 1</option>
+            {/* <option value="1">Grade 1</option>
             <option value="2">Grade 2</option>
             <option value="3">Grade 3</option>
             <option value="4">Grade 4</option>
@@ -188,7 +188,21 @@ const Grade = () => {
             <option value="9">Grade 9</option>
             <option value="10">Grade 10</option>
             <option value="11">Grade 11</option>
-            <option value="12">Grade 12</option>
+            <option value="12">Grade 12</option> */}
+
+            <option value="">--Select Grade --</option>
+            <option value="7J">Grade 7J</option>
+            <option value="7P">Grade 7P</option>
+            <option value="7S">Grade 7S</option>
+            <option value="7T">Grade 7T</option>
+            <option value="8J">Grade 8J</option>
+            <option value="8P">Grade 8P</option>
+            <option value="8S">Grade 8S</option>
+            <option value="10J">Grade 10J</option>
+            <option value="10P">Grade 10P</option>
+            <option value="10S">Grade 10S</option>
+            <option value="11J">Grade 11J</option>
+            <option value="11S">Grade 11S</option>
           </select>
         </div>
         <input className="form__btn" type="submit" value="Submit" />
