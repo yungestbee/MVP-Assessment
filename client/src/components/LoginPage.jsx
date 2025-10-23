@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "../css/login.css";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
-const API_BASE = import.meta.env.VITE_API_BASE;
+import { API_URL } from "../config/api";
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const LoginPage = () => {
 
     try {
       const response = await axios.post(
-        `${API_BASE}/api/v1/login`,
+        `${API_URL}/api/v1/login`,
         {
           username,
           password,

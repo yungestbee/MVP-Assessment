@@ -1,0 +1,58 @@
+{
+  "name": "Edulyze",
+  "version": "1.0.0",
+  "main": "main.js",
+  "build": {
+    "appId": "com.edulyze.assessment",
+    "asar": false,
+    "files": [
+      "main.js",
+      "server/**/*",
+      "client/dist/**/*",
+      "node_modules/**/*",
+      "data/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "extraResources": [
+      {
+        "from": "client/dist",
+        "to": "client/dist"
+      }
+    ]
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "electron-builder",
+    "start": "electron .",
+    "build:frontend": "cd client && npm run build",
+    "serve:frontend": "npx serve -s client/dist -l 3000"
+  },
+  "devDependencies": {
+    "electron": "^37.2.5",
+    "electron-builder": "^26.0.12",
+    "electron-rebuild": "^3.2.9",
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^12.4.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2",
+    "generate-password": "^1.7.1",
+    "ip": "^2.0.1",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.9.3",
+    "multer": "^1.4.5-lts.2",
+    "nodemailer": "^6.9.16",
+    "serve": "^14.2.5",
+    "xlsx": "^0.18.5"
+  }
+}
+

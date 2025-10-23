@@ -1,37 +1,72 @@
+// server/src/app.js
 const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors"); // For handling cross-origin requests
-require("dotenv").config(); // To manage environment variables
-const connectDB = require("./database/db");
+const cors = require("cors");
+const path = require("path");
+const cookieParser = require("cookie-parser");
+const fs = require("fs");
+require("dotenv").config();
+
+// Initialize DB
+require("./database/db");
+
+// Import routes
 const authRoutes = require("./server/routes/auth.routes");
 const studentRoutes = require("./server/routes/student.routes");
-const cookieParser = require("cookie-parser");
 const testRoutes = require("./server/routes/test.routes");
 const syncRoutes = require("./server/routes/sync.routes");
 
-const app = express();
-const PORT = process.env.PORT;
+function createServerApp() {
+  const app = express();
 
-// Middleware
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
+app.use((req, res, next) => {
+  const origin = req.headers.origin || "*";
+  res.setHeader("Access-Control-Allow-Origin", origin);
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
 
-app.use(express.json());
-app.use(cookieParser());
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200); // Handle preflight
+  }
 
-// Connect to MongoDB
-connectDB();
-// Routes
-// app.use("/api/v1/results", resultRoutes);
-app.use("/api/v1/students", studentRoutes);
-app.use("/api/v1", authRoutes);
-app.use("/api", testRoutes);
-app.use("/api/v1/sync", syncRoutes);
-
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
+  next();
 });
+
+
+  app.use(express.json());
+  app.use(cookieParser());
+
+  // Routes
+  app.get("/api/v1/health", (req, res) => res.sendStatus(200));
+  app.use("/api/v1/students", studentRoutes);
+  app.use("/api/v1", authRoutes);
+  app.use("/api", testRoutes);
+  app.use("/api/v1/sync", syncRoutes);
+
+  // ✅ Handle serving frontend properly in dev + prod
+  // Serve frontend only if it exists
+  const fs = require("fs");
+
+  const devClientPath = path.join(__dirname, "../client/dist");
+  const prodClientPath = path.join(__dirname, "../../client/dist");
+
+  // ✅ Detect correct path
+  const clientDistPath = fs.existsSync(devClientPath)
+    ? devClientPath
+    : prodClientPath;
+
+  if (fs.existsSync(clientDistPath)) {
+    app.use(express.static(clientDistPath));
+
+    app.get("/*", (req, res) => {
+      res.sendFile(path.join(clientDistPath, "index.html"));
+    });
+  }
+
+  return app;
+}
+
+module.exports = createServerApp;

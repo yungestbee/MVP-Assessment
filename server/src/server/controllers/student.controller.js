@@ -1,108 +1,154 @@
-const Student = require("../../models/students");
+const Student = require("../../models/student.model");
 
-class StudentController {
-  // POST: Create a new student
-  static async createStudent(req, res, next) {
-    const { firstName, lastName, grade } = req.body;
+// ✅ Create a new student
+const createStudent = (req, res) => {
+  try {
+    const { firstName, lastName, grade, score, school } = req.body;
 
     if (!firstName || !lastName || !grade) {
-      return res.status(400).json({ message: "All fields are required." });
+      return res.status(400).json({
+        status: "error",
+        message: "First name, last name, and grade are required.",
+      });
     }
 
-    try {
-      const preStudent = await Student.findOne({
-        lastName: lastName,
-        firstName: firstName,
-      });
-      if (preStudent) {
-        return res.status(203).json({
-          status: "success",
-          message: "Assessment attempted",
-        });
-      }
-      const student = new Student({
-        firstName,
-        lastName,
-        grade,
-      });
+    // Check if student already exists (optional)
+    const existing = Student.getAll().find(
+      (s) =>
+        s.firstName.toLowerCase() === firstName.toLowerCase() &&
+        s.lastName.toLowerCase() === lastName.toLowerCase() &&
+        s.grade.toLowerCase() === grade.toLowerCase()
+    );
 
-      await student.save();
-      return res.status(201).json({
-        status: "success",
-        message: "Student created successfully",
-        data: student,
+    if (existing) {
+      return res.status(203).json({
+        status: "error",
+        message: "Student has already attempted this assessment.",
       });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error creating student" });
     }
+
+    const newStudent = Student.create({
+      firstName,
+      lastName,
+      grade,
+      score,
+      school,
+    });
+
+    return res.status(201).json({
+      status: "success",
+      message: "Student created successfully",
+      data: newStudent,
+    });
+  } catch (error) {
+    console.error("❌ Error creating student:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error.",
+    });
   }
+};
 
-  // GET: Get one student by ID
-  static async getStudent(req, res) {
+// ✅ Get all students
+const getAllStudents = (req, res) => {
+  try {
+    const students = Student.getAll();
+    return res.status(200).json({
+      status: "success",
+      data: students,
+    });
+  } catch (error) {
+    console.error("❌ Error fetching students:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error.",
+    });
+  }
+};
+
+// ✅ Get student by ID
+const getStudentById = (req, res) => {
+  try {
     const { id } = req.params;
+    const student = Student.getById(id);
 
-    try {
-      const student = await Student.findById(id);
-      if (!student) {
-        return res.status(404).json({ message: "Student not found" });
-      }
-
-      return res.status(200).json({
-        status: "success",
-        data: student,
+    if (!student) {
+      return res.status(404).json({
+        status: "error",
+        message: "Student not found.",
       });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error retrieving student" });
     }
+
+    return res.status(200).json({
+      status: "success",
+      data: student,
+    });
+  } catch (error) {
+    console.error("❌ Error fetching student:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error.",
+    });
   }
+};
 
-  // GET: Get all students
-  static async getAllStudents(req, res) {
-    console.log("first")
-    try {
-      const students = await Student.find();
+// ✅ Update student
+const updateStudent = (req, res) => {
+  try {
+    const { id } = req.params;
+    const updated = Student.update(id, req.body);
 
-      return res.status(200).json({
-        status: "success",
-        data: students,
+    if (!updated) {
+      return res.status(404).json({
+        status: "error",
+        message: "Student not found.",
       });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error retrieving students" });
     }
+
+    return res.status(200).json({
+      status: "success",
+      message: "Student updated successfully.",
+      data: updated,
+    });
+  } catch (error) {
+    console.error("❌ Error updating student:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error.",
+    });
   }
+};
 
-  static async updateStudent(req, res) {
-    const { score, id, total, timestamp } = req.body;
+// ✅ Delete student
+const deleteStudent = (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = Student.delete(id);
 
-    let payload = {
-      score: score,
-      totalQuestions: total,
-      timeSubmitted: timestamp,
-    };
-
-    try {
-      const student = await Student.findByIdAndUpdate(
-        { _id: id },
-        {
-          score: payload,
-        },
-        { new: true }
-      );
-      console.log(student);
-
-      return res.status(201).json({
-        status: "success",
-        message: "Student created updated",
-        data: student,
+    if (result.changes === 0) {
+      return res.status(404).json({
+        status: "error",
+        message: "Student not found.",
       });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Error creating student" });
     }
-  }
-}
 
-module.exports = StudentController;
+    return res.status(200).json({
+      status: "success",
+      message: "Student deleted successfully.",
+    });
+  } catch (error) {
+    console.error("❌ Error deleting student:", error);
+    return res.status(500).json({
+      status: "error",
+      message: "Internal server error.",
+    });
+  }
+};
+
+module.exports = {
+  createStudent,
+  getAllStudents,
+  getStudentById,
+  updateStudent,
+  deleteStudent,
+};

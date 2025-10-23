@@ -1,34 +1,35 @@
-const User = require("../../models/user");
+// server/middlewares/auth.middleware.js
 const jwt = require("jsonwebtoken");
+const db = require("../../database/db");
 
-class AuthMiddleware {
-  static async authenticateUser(req, res, next) {
+const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
+
+const AuthMiddleware = {
+  authenticateUser: (req, res, next) => {
     try {
-      // const token = req.header("Authorization");
-      console.log("Cookies:", req.cookies);
-      
-      const token = req.cookies.userToken;
-      console.log("Token:", token);
-      if (!token) {
-        return res
-          .status(401)
-          .json({ msg: "No Token, authorization denied, Login again" });
-      }
-      console.log("user");
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const token =
+        req.cookies?.token || req.headers["authorization"]?.split(" ")[1];
 
-      let user = await User.findById(decoded.user.id);
+      if (!token) {
+        return res.status(401).json({ message: "Access denied. No token." });
+      }
+
+      const decoded = jwt.verify(token, JWT_SECRET);
+      const user = db
+        .prepare("SELECT * FROM users WHERE id = ?")
+        .get(decoded.id);
 
       if (!user) {
-        return res.status(401).json({ msg: "Token is not valid" });
+        return res.status(401).json({ message: "Invalid token" });
       }
+
       req.user = user;
       next();
-    } catch (err) {
-      console.error(err.message);
-      return res.status(401).json({ msg: "Token is not valid" });
+    } catch (error) {
+      console.error(error);
+      res.status(401).json({ message: "Invalid or expired token" });
     }
-  }
-}
+  },
+};
 
 module.exports = AuthMiddleware;

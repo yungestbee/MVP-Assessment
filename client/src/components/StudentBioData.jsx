@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-const API_BASE = import.meta.env.VITE_API_BASE;
+import { API_URL } from "../config/api";
 
 // Creating  a independent 'Functional Component' called => FirstName
 const FirstName = () => {
@@ -105,6 +105,10 @@ const Grade = () => {
   const handleSubmitGrade = async (evt) => {
     evt.preventDefault();
 
+console.log(window.electronAPI);
+
+
+
     let processedFirstName;
     let processedLastName;
     if (localStorage.getItem("std_firstname")) {
@@ -125,7 +129,7 @@ const Grade = () => {
         return;
       }
 
-      const URL = `${API_BASE}/api/v1/students`;
+      const URL = `${API_URL}/api/v1/students`;
 
       const response = await axios.post(
         URL,
@@ -150,7 +154,7 @@ const Grade = () => {
 
           confirmButtonColor: "#4a90e2",
         });
-        localStorage.setItem("std_id", response.data.data._id);
+        localStorage.setItem("std_id", response.data.data.id);
         navigate("/question-page");
       } else if (response.status === 203) {
         Swal.fire({

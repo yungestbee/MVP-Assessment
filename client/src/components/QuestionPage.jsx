@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import seniorQuizDataRaw from "./senior_questions.json";
-import juniorQuizDataRaw from "./junior_questions.json";
+import seniorQuizDataRaw from "./grade10-12_questions.json";
+import juniorQuizDataRaw from "./grade8-9_questions.json";
+import grade7 from "./grade7_questions.json"
 import "../css/quesionPages.css";
-const API_BASE = import.meta.env.VITE_API_BASE;
+import { API_URL } from "../config/api";
 
 // Utility to shuffle an array
 const shuffleArray = (array) => {
@@ -48,12 +49,12 @@ const QuestionPage = () => {
     console.log(grade)
     let selectedData = [];
 
-    if (grade >= 7 && grade <= 9) {
+    if (grade > 7 && grade <= 9) {
       selectedData = juniorQuizDataRaw;
     } else if (grade >= 10 && grade <= 12) {
       selectedData = seniorQuizDataRaw;
     } else {
-      selectedData = juniorQuizDataRaw;
+      selectedData = grade7;
     }
 
     const shuffled = shuffleArray(selectedData).map((question) => ({
@@ -152,14 +153,14 @@ const QuestionPage = () => {
 
     const payload = {
       id: neededId,
-      score,
+      score: score,
       total: quizData.length,
       timestamp: new Date().toISOString(),
     };
 
     try {
-      const res = await fetch(`${API_BASE}/api/v1/students/submit-score`, {
-        method: "POST",
+      const res = await fetch(`${API_URL}/api/v1/students/${neededId}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },

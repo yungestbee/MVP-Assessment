@@ -1,242 +1,169 @@
-const User = require("../../models/user");
+// server/controllers/auth.controller.js
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { loginSchema, signUp } = require("../../validators/joiValidation");
-const generator = require("generate-password");
 const crypto = require("crypto");
-const sendMail = require("../../utils/transport");
-require("dotenv").config();
+const db = require("../../database/db"); // adjust path if needed
 
-class AuthController {
-  static async register(req, res, next) {
-    const value = signUp(req.body);
-    console.log(value);
-    const { email, firstName, lastName } = value.value;
+const JWT_SECRET = process.env.JWT_SECRET || "supersecretkey";
+
+// ✅ Create users table if not exists
+db.prepare(
+  `
+  CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT,
+    email TEXT UNIQUE,
+    password TEXT,
+    resetToken TEXT,
+    resetTokenExpire INTEGER,
+    createdAt TEXT DEFAULT CURRENT_TIMESTAMP
+  )
+`
+).run();
+
+const AuthController = {
+  // ===============================
+  // REGISTER USER
+  // ===============================
+  register: (req, res, next) => {
     try {
-      const password = generator.generate({
-        length: 10,
-        numbers: true,
-        symbols: false,
-        uppercase: true,
-      });
-      console.log(password);
-      const salt = await bcrypt.genSalt(10);
-      let hashedPassword = await bcrypt.hash(password, salt);
-      let username = `${firstName}.${lastName?.[0] || ""}`.toLowerCase();
+      const { username, email, password } = req.body;
 
-      let user = new User({
-        firstName,
-        lastName,
-        email,
-        tempPassword: hashedPassword,
-        password: hashedPassword,
-        username: username,
-      });
-      console.log(user);
-
-      await user.save();
-      req.user = username;
-      req.pass = password;
-      // return res.status(201).json({
-      //   status: 200,
-      //   message: 'User created successfully',
-      //   data: user,
-      // });
-      next();
-    } catch (error) {
-      console.log(error);
-      const errors = errorHandler.dbSchemaErrors(error);
-      return res.status(403).json({ Message: errors });
-    }
-  }
-
-  static async login(req, res) {
-    const result = loginSchema(req.body);
-    if (result.error) {
-      console.log(result.error.details[0].message);
-      return res.status(400).json(result.error.details[0].message);
-    } else {
-      console.log("Validation successful");
-    }
-    try {
-      const { username, password } = result.value;
-      let user = await User.findOne({ username });
-
-      if (!user) {
-        return res.status(400).json({ msg: "Invalid Credentials" });
+      if (!username || !email || !password) {
+        return res.status(400).json({ message: "All fields are required" });
       }
 
-      if (user.tempPassword === user.password) {
-        const isTempMatch = await bcrypt.compare(password, user.tempPassword);
-        if (isTempMatch) {
-          const payload = {
-            user: {
-              id: user.id,
-              name: user.username,
-            },
-          };
-          const token = jwt.sign(payload, process.env.JWT_SECRET, {
-            expiresIn: 3600000,
-          });
-
-          let resp = {
-            code: 419,
-            status: "success",
-            message: "Logged in! Now change your password!!!",
-            token,
-          };
-          res.cookie("userToken", token, { maxAge: 1000 * 60 * 60 });
-          console.log(resp);
-          return res.status(resp.code).json(resp.message);
-        } else {
-          return res.status(400).json({ msg: "Invalid Credentials" });
-        }
-      } else {
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) {
-          return res.status(400).json({ msg: "Invalid Credentials" });
-        }
-        // initiate the resp object
-        let resp;
-        const payload = {
-          user: {
-            id: user.id,
-            name: user.username,
-          },
-        };
-
-        const token = jwt.sign(payload, process.env.JWT_SECRET, {
-          expiresIn: 3600000,
-        });
-        res.cookie("userToken", token, { maxAge: 1000 * 60 * 60 });
-
-        const { password: userPassword, ...userDataWithoutPassword } =
-          user.toObject();
-
-        resp = {
-          code: 200,
-          status: "success",
-          message: "Login Successful",
-          data: { user: userDataWithoutPassword, token },
-        };
-        req.user = user.username;
-        return res.status(resp.code).json(resp.message);
+      const existing = db
+        .prepare("SELECT * FROM users WHERE email = ?")
+        .get(email);
+      if (existing) {
+        return res.status(400).json({ message: "Email already registered" });
       }
-    } catch (err) {
-      // console.error(err.message);
-      return res.status(500).send("Error logging in!");
-    }
-  }
 
-  // static async changePassword(req, res) {
-  //   const userId = req.user.id;
-  //   console.log(userId);
-  //   console.log(req.body);
+      const hashedPassword = bcrypt.hashSync(password, 10);
+      const stmt = db.prepare(
+        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)"
+      );
+      const info = stmt.run(username, email, hashedPassword);
 
-  //   const { newPassword, confirmNewPassword } = req.body;
-  //   if (newPassword == confirmNewPassword) {
-  //     try {
-  //       let userExist = await User.findById(userId);
-  //       if (!userExist) {
-  //         return res.status(404).json({ message: "User not found" });
-  //       }
-
-  //       const salt = await bcrypt.genSalt();
-  //       const hashedPassword = await bcrypt.hash(newPassword, salt);
-  //       // Update the password for the correct model
-  //       await User.findByIdAndUpdate(
-  //         userId,
-  //         { password: hashedPassword },
-  //         { new: true }
-  //       );
-
-  //       return res
-  //         .status(201)
-  //         .json({ message: "Password changed successfully" });
-  //       // else
-  //       //   return res
-  //       //     .status(403)
-  //       //     .json({ message: 'new password similar to previous password' });
-  //     } catch (error) {
-  //       console.log(error);
-  //       return res.status(500).json({ message: "Error changing password" });
-  //     }
-  //   } else {
-  //     return res.status(400).json({ message: "Password mismatch" });
-  //   }
-  // }
-
-  static async logout(req, res) {
-    try {
-      res.clearCookie("userToken");
-      res.status(200).json({ message: "Logout Successful" });
+      req.user = { id: info.lastInsertRowid, username, email }; // for sendMail middleware
+      next(); // call sendMail middleware
     } catch (error) {
-      console.error(error.message);
-      return res.status(500).send("Error logging out!");
+      console.error(error);
+      res.status(500).json({ message: "Error creating user" });
     }
-  }
+  },
 
-  static async forgotPassword(req, res) {
-    const { email } = req.body;
-
+  // ===============================
+  // LOGIN USER
+  // ===============================
+  login: (req, res) => {
     try {
-      const user = await User.findOne({ email });
+      const { username, password } = req.body;
+      console.log(username, password)
+      const user = db.prepare("SELECT * FROM users WHERE username = ?").get(username);
+
       if (!user) {
         return res.status(404).json({ message: "User not found" });
       }
 
-      const payload = { id: user._id };
-      const token = jwt.sign(payload, process.env.JWT_SECRET, {
-        expiresIn: "15m",
+      const valid = bcrypt.compareSync(password, user.password);
+      if (!valid) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
+
+      const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+        expiresIn: "1d",
       });
 
-      const resetLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
-
-      const subject = "Password Reset Request";
-      const text = `Reset your password here: ${resetLink}`;
-      const html = `
-    <div style="font-family: Arial, sans-serif; color: #333;">
-      <h2>Password Reset Request</h2>
-      <p>You requested to reset your password. Click the link below:</p>
-      <a href="${resetLink}" style="color: #1a73e8;">Reset Password</a>
-      <p>If you didn't request this, you can ignore this email.</p>
-    </div>
-  `;
-      await sendMail(user.email, subject, text, html);
-
-      return res.status(200).json({
-        message: "Password reset link has been sent to your email",
-      });
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: false, // set to true in production with HTTPS
+          sameSite: "lax",
+        })
+        .json({
+          message: "Login successful",
+          user: { id: user.id, username: user.username, email: user.email },
+          token,
+        });
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ message: "Failed to process request" });
+      res.status(500).json({ message: "Login error" });
     }
-  }
+  },
 
-  static async resetPassword(req, res) {
-    const { token } = req.params;
-    const { newPassword } = req.body;
-
+  // ===============================
+  // FORGOT PASSWORD
+  // ===============================
+  forgotPassword: (req, res) => {
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decoded.id);
+      const { email } = req.body;
+      const user = db.prepare("SELECT * FROM users WHERE email = ?").get(email);
 
-      if (!user) return res.status(404).json({ message: "User not found" });
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
 
-      const salt = await bcrypt.genSalt(10);
-      const hashed = await bcrypt.hash(newPassword, salt);
+      const resetToken = crypto.randomBytes(20).toString("hex");
+      const expire = Date.now() + 10 * 60 * 1000; // 10 minutes
 
-      user.password = hashed;
-      await user.save();
+      db.prepare(
+        "UPDATE users SET resetToken = ?, resetTokenExpire = ? WHERE id = ?"
+      ).run(resetToken, expire, user.id);
 
-      return res
-        .status(200)
-        .json({ message: "Password has been reset successfully" });
-    } catch (err) {
-      console.error(err);
-      return res.status(400).json({ message: "Invalid or expired token" });
+      const resetUrl = `http://localhost:5173/reset-password/${resetToken}`;
+      // You can use nodemailer here (if sendMail middleware not handling this)
+      console.log("Reset link:", resetUrl);
+
+      res.json({ message: "Password reset link sent to your email", resetUrl });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error sending password reset link" });
     }
-  }
-}
+  },
+
+  // ===============================
+  // RESET PASSWORD
+  // ===============================
+  resetPassword: (req, res) => {
+    try {
+      const { token } = req.params;
+      const { password } = req.body;
+
+      const user = db
+        .prepare(
+          "SELECT * FROM users WHERE resetToken = ? AND resetTokenExpire > ?"
+        )
+        .get(token, Date.now());
+
+      if (!user) {
+        return res.status(400).json({ message: "Invalid or expired token" });
+      }
+
+      const hashedPassword = bcrypt.hashSync(password, 10);
+      db.prepare(
+        "UPDATE users SET password = ?, resetToken = NULL, resetTokenExpire = NULL WHERE id = ?"
+      ).run(hashedPassword, user.id);
+
+      res.json({ message: "Password reset successful" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error resetting password" });
+    }
+  },
+
+  // ===============================
+  // LOGOUT USER
+  // ===============================
+  logout: (req, res) => {
+    try {
+      res.clearCookie("token");
+      res.json({ message: "Logged out successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error logging out" });
+    }
+  },
+};
 
 module.exports = AuthController;

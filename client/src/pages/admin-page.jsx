@@ -5,6 +5,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable"; // ← use named import
 import "../css/admin-page.css";
+import { API_URL } from "../config/api";
 
 export default function AdminPage() {
   const [students, setStudents] = useState([]);
@@ -13,17 +14,13 @@ export default function AdminPage() {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
   const fileInputRef = useRef(null);
-  const API_BASE = import.meta.env.VITE_API_BASE;
 
   useEffect(() => {
     const fetchStudents = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE}/api/v1/students`,
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axios.get(`${API_URL}/api/v1/students`, {
+          withCredentials: true,
+        });
         const studentData = response.data.data;
         console.log(studentData);
 
@@ -116,8 +113,8 @@ export default function AdminPage() {
         student.firstName || "",
         student.lastName || "",
         student.grade || "",
-        student.score?.score ?? "N/A",
-        student.score?.timeSubmitted ?? "N/A",
+        student.score ?? "N/A",
+        student.updatedAt ?? "N/A",
       ]),
       startY: 20,
     });
@@ -181,8 +178,8 @@ export default function AdminPage() {
                     <td>{student.firstName}</td>
                     <td>{student.lastName}</td>
                     <td>{student.grade}</td>
-                    <td>{student.score.score}</td>
-                    <td>{student.score.timeSubmitted}</td>
+                    <td>{student.score}</td>
+                    <td>{student.updatedAt}</td>
                   </tr>
                 ))}
               </tbody>
