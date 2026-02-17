@@ -195,18 +195,16 @@ console.log(window.electronAPI);
             <option value="12">Grade 12</option> */}
 
             <option value="">--Select Grade --</option>
-            <option value="7J">Grade 7J</option>
-            <option value="7P">Grade 7P</option>
-            <option value="7S">Grade 7S</option>
-            <option value="7T">Grade 7T</option>
-            <option value="8J">Grade 8J</option>
-            <option value="8P">Grade 8P</option>
-            <option value="8S">Grade 8S</option>
-            <option value="10J">Grade 10J</option>
-            <option value="10P">Grade 10P</option>
-            <option value="10S">Grade 10S</option>
-            <option value="11J">Grade 11J</option>
-            <option value="11S">Grade 11S</option>
+            <option value="3D">Grade 3 Diamond</option>
+            <option value="3E">Grade 3 Emerald</option>
+            <option value="3S">Grade 3 Sapphire</option>
+            <option value="4R">Grade 4 Ruby</option>
+            <option value="4AMB">Grade 4 Amber</option>
+            <option value="4A">Grade 4 Amethyst</option>
+            <option value="5S">Grade 5 seal</option>
+            <option value="5W">Grade 5 whale</option>
+            <option value="5T">Grade 5 tuna</option>
+            <option value="6D">Grade 6 Deer</option>
           </select>
         </div>
         <input className="form__btn" type="submit" value="Submit" />

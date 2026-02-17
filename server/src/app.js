@@ -18,23 +18,25 @@ const syncRoutes = require("./server/routes/sync.routes");
 function createServerApp() {
   const app = express();
 
-app.use((req, res, next) => {
-  const origin = req.headers.origin || "*";
-  res.setHeader("Access-Control-Allow-Origin", origin);
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.setHeader("Access-Control-Allow-Credentials", "true");
+  app.use((req, res, next) => {
+    const origin = req.headers.origin || "*";
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", "true");
 
-  if (req.method === "OPTIONS") {
-    return res.sendStatus(200); // Handle preflight
-  }
+    if (req.method === "OPTIONS") {
+      return res.sendStatus(200); // Handle preflight
+    }
 
-  next();
-});
-
+    next();
+  });
 
   app.use(express.json());
   app.use(cookieParser());
@@ -46,21 +48,15 @@ app.use((req, res, next) => {
   app.use("/api", testRoutes);
   app.use("/api/v1/sync", syncRoutes);
 
-  // ✅ Handle serving frontend properly in dev + prod
-  // Serve frontend only if it exists
-  const fs = require("fs");
-
+  // Serve frontend
   const devClientPath = path.join(__dirname, "../client/dist");
   const prodClientPath = path.join(__dirname, "../../client/dist");
-
-  // ✅ Detect correct path
   const clientDistPath = fs.existsSync(devClientPath)
     ? devClientPath
     : prodClientPath;
 
   if (fs.existsSync(clientDistPath)) {
     app.use(express.static(clientDistPath));
-
     app.get("/*", (req, res) => {
       res.sendFile(path.join(clientDistPath, "index.html"));
     });

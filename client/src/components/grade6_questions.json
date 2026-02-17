@@ -1,0 +1,137 @@
+[
+  {
+    "question": "If you connect an Active Buzzer and a Passive Buzzer to the same output pin, what is the MAIN difference in their sound output?",
+    "options": [
+      "The Active Buzzer will be silent, and the Passive Buzzer will make a continuous tone.",
+      "The Active Buzzer will produce a continuous tone, and the Passive Buzzer will be silent.",
+      "Both will produce a continuous, identical tone.",
+      "Neither will make a sound without extra code."
+    ],
+    "answer": "The Active Buzzer will produce a continuous tone, and the Passive Buzzer will be silent."
+  },
+  {
+    "question": "What does an IR sensor detect?",
+    "options": ["Sound", "Light", "Heat", "Distance"],
+    "answer": "Light"
+  },
+  {
+    "question": "What does IR mean?",
+    "options": ["Infrared", "Inside Range", "Input Reader", "Inner Ray"],
+    "answer": "Infrared"
+  },
+  {
+    "question": "Which part of the IR sensor sends the signal?",
+    "options": ["Receiver", "Transmitter", "Buzzer", "Light bulb"],
+    "answer": "Transmitter"
+  },
+  {
+    "question": "In the Intruder Alert System, the Arduino acts as:",
+    "options": [
+      "A power supply only",
+      "A converter of sound waves into light",
+      "The brain that processes the sensor signal and activates the buzzer",
+      "A device that stores pictures of the intruder"
+    ],
+    "answer": "The brain that processes the sensor signal and activates the buzzer"
+  },
+  {
+    "question": "A buzzer produces what type of signal?",
+    "options": ["Light", "Sound", "Heat", "Motion"],
+    "answer": "Sound"
+  },
+  {
+    "question": "Which pin of a buzzer is connected to the Arduino output?",
+    "options": ["Positive", "Negative", "Middle", "None"],
+    "answer": "Positive"
+  },
+  {
+    "question": "Which is a good example of using an if-then-else block?",
+    "options": [
+      "Making the robot wait for 5 seconds",
+      "Turning an LED on forever",
+      "Turning a buzzer ON if a sensor detects an object, and OFF otherwise",
+      "Counting motor spins"
+    ],
+    "answer": "Turning a buzzer ON if a sensor detects an object, and OFF otherwise"
+  },
+  {
+    "question": "Which component makes sound in an alert system?",
+    "options": ["IR sensor", "Buzzer", "LED", "Motor"],
+    "answer": "Buzzer"
+  },
+  {
+    "question": "If the IR sensor detects motion, what should the buzzer do?",
+    "options": ["Stay silent", "Turn off", "Make sound", "Blink"],
+    "answer": "Make sound"
+  },
+  {
+    "question": "Why must an LED leg and one side of a resistor be in the same terminal strip on a breadboard?",
+    "options": [
+      "Because power rails are far away",
+      "Because holes in the same strip are electrically connected",
+      "Because current flows faster",
+      "Because the resistor must be close to the LED"
+    ],
+    "answer": "Because holes in the same strip are electrically connected"
+  },
+  {
+    "question": "What did we use for programming?",
+    "options": ["M Block", "Paint", "Microsoft Word", "Google"],
+    "answer": "M Block"
+  },
+  {
+    "question": "Which of these can be connected to an Arduino?",
+    "options": ["Sensor", "Light", "Motors", "All of the above"],
+    "answer": "All of the above"
+  },
+  {
+    "question": "What happens when you set digital pin 9 HIGH for an LED connected to it?",
+    "options": [
+      "The LED turns off",
+      "The LED blinks quickly",
+      "The LED turns ON",
+      "The LED makes a sound"
+    ],
+    "answer": "The LED turns ON"
+  },
+  {
+    "question": "What block is used to control an LED in mBlock?",
+    "options": ["Forever", "set digital pin", "Wait block", "All of the above"],
+    "answer": "set digital pin"
+  },
+  {
+    "question": "What is the purpose of an if-then-else block?",
+    "options": ["Decision making", "Movement", "Sound control", "Delay"],
+    "answer": "Decision making"
+  },
+  {
+    "question": "In a fire alarm system, if the flame sensor detects fire, what should the buzzer do?",
+    "options": [
+      "Wait for 10 seconds",
+      "Move the robot",
+      "Produce an alert sound",
+      "Measure distance to the fire"
+    ],
+    "answer": "Produce an alert sound"
+  },
+  {
+    "question": "Which of these is NOT a proximity sensor?",
+    "options": ["Fire sensor", "Ultrasonic sensor", "IR sensor", "PIR sensor"],
+    "answer": "Fire sensor"
+  },
+  {
+    "question": "Can an IR sensor work without an emitter?",
+    "options": ["Yes", "No"],
+    "answer": "No"
+  },
+  {
+    "question": "A student connects the OUT pin of an IR sensor to A0 instead of a digital pin. What is likely to happen?",
+    "options": [
+      "It will work perfectly",
+      "It will not work correctly because the output is digital",
+      "It will reset the Arduino",
+      "It will turn into an ultrasonic sensor"
+    ],
+    "answer": "It will not work correctly because the output is digital"
+  }
+]

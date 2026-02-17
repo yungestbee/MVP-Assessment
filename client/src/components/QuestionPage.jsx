@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import seniorQuizDataRaw from "./grade10-12_questions.json";
-import juniorQuizDataRaw from "./grade8-9_questions.json";
-import grade7 from "./grade7_questions.json"
+import grade3 from "./grade3_questions.json";
+import grade4 from "./grade4_questions.json";
+import grade5 from "./grade5_questions.json";
+import grade6 from "./grade6_questions.json";
 import "../css/quesionPages.css";
 import { API_URL } from "../config/api";
 
@@ -49,12 +50,14 @@ const QuestionPage = () => {
     console.log(grade)
     let selectedData = [];
 
-    if (grade > 7 && grade <= 9) {
-      selectedData = juniorQuizDataRaw;
-    } else if (grade >= 10 && grade <= 12) {
-      selectedData = seniorQuizDataRaw;
+    if (grade == 3) {
+      selectedData = grade3;
+    } else if (grade == 4) {
+      selectedData = grade4;
+    } else if (grade == 5) {
+      selectedData = grade5;
     } else {
-      selectedData = grade7;
+      selectedData = grade6;
     }
 
     const shuffled = shuffleArray(selectedData).map((question) => ({

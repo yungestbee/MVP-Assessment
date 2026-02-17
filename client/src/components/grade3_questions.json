@@ -1,0 +1,117 @@
+[
+  {
+    "question": "What does an IR sensor detect?",
+    "options": ["Sound", "Light", "Heat", "Distance"],
+    "answer": "Light"
+  },
+  {
+    "question": "What does IR mean?",
+    "options": ["Infrared", "Inside Range", "Input Reader", "Inner Ray"],
+    "answer": "Infrared"
+  },
+  {
+    "question": "Which part of the IR sensor sends the signal?",
+    "options": ["Receiver", "Emitter", "Buzzer", "Light bulb"],
+    "answer": "Emitter"
+  },
+  {
+    "question": "What happens when an object is close to an IR sensor?",
+    "options": [
+      "Nothing happens",
+      "The sensor detects it",
+      "It turns off",
+      "It changes color"
+    ],
+    "answer": "The sensor detects it"
+  },
+  {
+    "question": "A buzzer makes what kind of signal?",
+    "options": ["Light", "Sound", "Heat", "Motion"],
+    "answer": "Sound"
+  },
+  {
+    "question": "Which pin of a buzzer is connected to the Arduino output?",
+    "options": ["Positive", "Negative", "Middle", "None"],
+    "answer": "Positive"
+  },
+  {
+    "question": "What is an intruder alert system used for?",
+    "options": ["Cooking", "Security", "Cleaning", "Decoration"],
+    "answer": "Security"
+  },
+  {
+    "question": "Which component makes sound in an alert system?",
+    "options": ["IR sensor", "Buzzer", "LED", "Motor"],
+    "answer": "Buzzer"
+  },
+  {
+    "question": "If the IR sensor detects motion, what should the buzzer do?",
+    "options": ["Stay silent", "Turn off", "Make sound", "Blink"],
+    "answer": "Make sound"
+  },
+  {
+    "question": "Which power source is needed for an alert system?",
+    "options": ["Battery", "Solar", "Gas", "Water"],
+    "answer": "Battery"
+  },
+  {
+    "question": "How many pins does an LED have?",
+    "options": ["6", "3", "2", "4"],
+    "answer": "2"
+  },
+  {
+    "question": "What does an ultrasonic sensor measure?",
+    "options": ["Light", "Sound", "Distance", "Temperature"],
+    "answer": "Distance"
+  },
+  {
+    "question": "What type of wave does an ultrasonic sensor use?",
+    "options": ["Light waves", "Water waves", "Sound waves", "Heat waves"],
+    "answer": "Sound waves"
+  },
+  {
+    "question": "What is an Arduino?",
+    "options": [
+      "A type of food",
+      "A video game",
+      "The brain of a robot",
+      "A toy car"
+    ],
+    "answer": "The brain of a robot"
+  },
+  {
+    "question": "What does an LED do?",
+    "options": ["It makes sound", "Gives light", "Moves wheels", "Stores data"],
+    "answer": "Gives light"
+  },
+  {
+    "question": "What does HIGH mean in programming?",
+    "options": ["Off", "Run", "On", "All of the above"],
+    "answer": "On"
+  },
+  {
+    "question": "Which motor rotates in degrees?",
+    "options": ["DC motor", "Servo motor", "LED motor", "Arduino motor"],
+    "answer": "Servo motor"
+  },
+  {
+    "question": "Which side of the LED is longer?",
+    "options": [
+      "Negative side",
+      "Signal side",
+      "Positive side",
+      "Arduino side"
+    ],
+    "answer": "Positive side"
+  },
+  {
+    "question": "How many digital pins does the Arduino Uno have?",
+    "options": ["11", "12", "13", "14"],
+    "answer": "14"
+  },
+  {
+    "question": "A breadboard is used for temporary connections?",
+    "options": ["True", "False"],
+    "answer": "True"
+  }
+]

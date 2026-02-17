@@ -3,7 +3,7 @@ const Student = require("../../models/student.model");
 // ✅ Create a new student
 const createStudent = (req, res) => {
   try {
-    const { firstName, lastName, grade, score, school } = req.body;
+    const { firstName, lastName, grade, score = {}, school } = req.body;
 
     if (!firstName || !lastName || !grade) {
       return res.status(400).json({
@@ -12,7 +12,7 @@ const createStudent = (req, res) => {
       });
     }
 
-    // Check if student already exists (optional)
+    // Optional: check if student already exists for the same grade
     const existing = Student.getAll().find(
       (s) =>
         s.firstName.toLowerCase() === firstName.toLowerCase() &&
@@ -123,9 +123,9 @@ const updateStudent = (req, res) => {
 const deleteStudent = (req, res) => {
   try {
     const { id } = req.params;
-    const result = Student.delete(id);
+    const deleted = Student.delete(id);
 
-    if (result.changes === 0) {
+    if (!deleted) {
       return res.status(404).json({
         status: "error",
         message: "Student not found.",

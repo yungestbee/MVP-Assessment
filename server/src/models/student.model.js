@@ -1,11 +1,21 @@
+// Student.js
+const { app } = require("electron");
 const Database = require("better-sqlite3");
 const path = require("path");
+const fs = require("fs");
 
-// ✅ Connect to your SQLite database file
-const dbPath = path.join(__dirname, "../../database"); // adjust if needed
-const db = new Database(dbPath);
+// Use Electron's userData path for persistence
+const dbFile = path.join(app.getPath("userData"), "students.db");
 
-// ✅ Create students table if not exists
+// Ensure folder exists
+if (!fs.existsSync(path.dirname(dbFile))) {
+  fs.mkdirSync(path.dirname(dbFile), { recursive: true });
+}
+
+// Connect to DB
+const db = new Database(dbFile);
+
+// Create table if it doesn't exist
 db.prepare(
   `
   CREATE TABLE IF NOT EXISTS students (
@@ -21,33 +31,28 @@ db.prepare(
 `
 ).run();
 
-// ✅ Student Model
 const Student = {
-  // CREATE
   create: (data) => {
-    const { firstName, lastName, grade, score = "{}", school = null } = data;
+    const { firstName, lastName, grade, score = {}, school = null } = data;
     const stmt = db.prepare(`
       INSERT INTO students (firstName, lastName, grade, score, school)
       VALUES (?, ?, ?, ?, ?)
     `);
-    const result = stmt.run(firstName, lastName, grade, score, school);
+    const result = stmt.run(
+      firstName,
+      lastName,
+      grade,
+      JSON.stringify(score),
+      school
+    );
     return Student.getById(result.lastInsertRowid);
   },
 
-  // READ ALL
-  getAll: () => {
-    return db.prepare("SELECT * FROM students ORDER BY id DESC").all();
-  },
+  getAll: () => db.prepare("SELECT * FROM students ORDER BY id DESC").all(),
+  getById: (id) => db.prepare("SELECT * FROM students WHERE id = ?").get(id),
 
-  // READ ONE
-  getById: (id) => {
-    return db.prepare("SELECT * FROM students WHERE id = ?").get(id);
-  },
-
-  // UPDATE
   update: (id, data) => {
     const { firstName, lastName, grade, score, school } = data;
-
     const stmt = db.prepare(`
       UPDATE students
       SET
@@ -59,15 +64,21 @@ const Student = {
         updatedAt = datetime('now')
       WHERE id = ?
     `);
-
-    stmt.run(firstName, lastName, grade, score, school, id);
+    stmt.run(
+      firstName,
+      lastName,
+      grade,
+      score ? JSON.stringify(score) : undefined,
+      school,
+      id
+    );
     return Student.getById(id);
   },
 
-  // DELETE
   delete: (id) => {
     const stmt = db.prepare("DELETE FROM students WHERE id = ?");
-    return stmt.run(id);
+    const result = stmt.run(id);
+    return result.changes > 0;
   },
 };
 

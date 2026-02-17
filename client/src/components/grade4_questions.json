@@ -1,0 +1,122 @@
+[
+  {
+    "question": "What happens when an IR sensor’s emitted light bounces off an object?",
+    "options": [
+      "The receiver detects it",
+      "It turns off",
+      "The buzzer stops",
+      "Nothing happens"
+    ],
+    "answer": "The receiver detects it"
+  },
+  {
+    "question": "How many types of buzzers do we have?",
+    "options": ["5", "4", "3", "2"],
+    "answer": "2"
+  },
+  {
+    "question": "What does an IR sensor detect?",
+    "options": ["Sound", "Light", "Heat", "Distance"],
+    "answer": "Light"
+  },
+  {
+    "question": "What does IR mean?",
+    "options": ["Infrared", "Inside Range", "Input Reader", "Inner Ray"],
+    "answer": "Infrared"
+  },
+  {
+    "question": "Which part of the IR sensor sends the signal?",
+    "options": ["Receiver", "Emitter", "Buzzer", "Light bulb"],
+    "answer": "Emitter"
+  },
+  {
+    "question": "Do IR sensors work by emitting sound waves?",
+    "options": ["True", "False"],
+    "answer": "False"
+  },
+  {
+    "question": "A buzzer makes what kind of signal?",
+    "options": ["Light", "Sound", "Heat", "Motion"],
+    "answer": "Sound"
+  },
+  {
+    "question": "Which pin of a buzzer is connected to the Arduino output?",
+    "options": ["Positive", "Negative", "Middle", "None"],
+    "answer": "Positive"
+  },
+  {
+    "question": "The if then block helps the robot make decisions?",
+    "options": ["True", "False"],
+    "answer": "True"
+  },
+  {
+    "question": "Which component makes sound in an alert system?",
+    "options": ["IR sensor", "Buzzer", "LED", "Motor"],
+    "answer": "Buzzer"
+  },
+  {
+    "question": "What is the black part of the IR sensor called?",
+    "options": ["Receiver", "Led", "Emitter", "All of the above"],
+    "answer": "Emitter"
+  },
+  {
+    "question": "An ultrasonic sensor measures distance in?",
+    "options": ["Km", "Cm", "Mm", "Miles"],
+    "answer": "Cm"
+  },
+  {
+    "question": "What is the angle limit of a servo motor?",
+    "options": ["360", "160", "120", "180"],
+    "answer": "180"
+  },
+  {
+    "question": "One of these is an analog pin",
+    "options": ["5v", "A0", "Gnd", "13", "5"],
+    "answer": "A0"
+  },
+  {
+    "question": "What kind of sound does an active buzzer make?",
+    "options": ["Light flash", "Beep", "Whistle", "Knock"],
+    "answer": "Beep"
+  },
+  {
+    "question": "The ultrasonic sensor has which pins?",
+    "options": [
+      "VCC, Trig , Echo, Gnd",
+      "Out, Gnd, VCC",
+      "Gnd, Vcc, 5v",
+      "Gnd, A0, Vcc, Analog pin"
+    ],
+    "answer": "VCC, Trig , Echo, Gnd"
+  },
+  {
+    "question": "Select the output device.",
+    "options": [
+      "Led,buzzer",
+      "IR sensor, wires",
+      "I don't know",
+      "All of the above"
+    ],
+    "answer": "Led,buzzer"
+  },
+  {
+    "question": "The forever block stops after running once?",
+    "options": ["True", "False"],
+    "answer": "False"
+  },
+  {
+    "question": "In MBlock, which block starts the program?",
+    "options": [
+      "When arduino uno starts up",
+      "Loop block",
+      "Forever block",
+      "Set digital pin"
+    ],
+    "answer": "When arduino uno starts up"
+  },
+  {
+    "question": "Can a buzzer detect an object?",
+    "options": ["True", "False"],
+    "answer": "False"
+  }
+]
